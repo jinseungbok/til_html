@@ -271,6 +271,7 @@ git add .
 ```
 
 - Git 작업 내역 메모하기
+
 ```bash
 git commit
 [docs] 초기 프로젝트 환경 설정
@@ -278,7 +279,44 @@ git commit
 
 - 폴더 구성 및 index.html 초기 작성
 - git 프로젝트 초기화
-- 
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   Default
+#	new file:   Format
+#	new file:   public/README.md
+#	new file:   public/index.html
+#	new file:   "\354\204\244\354\240\225\353\251\224\353\211\264"
+#
 ```
+
+- 새로운 작업 단위, 즉 브랜치 생성하기
+
+```bash
+git branch header
+git switch header
+
+- 월요일 할거.
+```
+
+## 2.2 Prettier 셋팅(코딩 컨벤션 도구)
+
+- 윈도우 검색 > `시스템 환경 변수 편집` > 환경변수
+- Administrator에 대한 사용자 변수
+- Path 내용 추가 : `C/Windows/system32`
+- 시스템 변수
+- Path 내용 추가 : `C/Windows/System32`
+
+# WAS(Web Application System)
+
+## 1. 기본 추천
+
+## 3. GitHub
 
 - 웹 에서 나의 계정에 코딩 버전을 관리하는 도구
