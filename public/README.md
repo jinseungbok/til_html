@@ -581,3 +581,27 @@ div {
 ## 7. CSS 살펴보기
 - margin (영역 바깥으로의 여백)
   - margin-top 은 오류가 발생할 수 있음
+
+## positon 을 꼭 기억하자.
+
+### 1. 내가 정확하게 px로 위치를 지정하고 싶다.
+- 아래처럼 할 때 정말 주의하세요.
+- 바깥 영역에 `position: relative`가 있어야 해요.
+
+```css
+position: absolute;
+left: 0px;
+top: 0px;
+right: 0px;
+bottom: 0px;
+```
+
+### 2. 내가 웹 브라우저에 특정 위치를 고정하고 싶다.
+
+```css
+position: fixed;
+left: 0px;
+top: 0px;
+right: 0px;
+bottom: 0px;
+```
