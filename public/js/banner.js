@@ -26,8 +26,8 @@ window.addEventListener("load", function () {
     );
     // 완성시킬 html 글자
     let htmlTag = "";
-    for (let i = 0; i < bannerData.length; i++) {
-      const tempObj = bannerData[i];
+    for (let i = 0; i < _data.length; i++) {
+      const tempObj = _data[i];
 
       const tag = `
       <div class="swiper-slide" id="${tempObj.id}">
