@@ -2,6 +2,7 @@
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid #ebebeb;
+  z-index: 999;
 }
 .header_down {
   position: fixed;
@@ -9,7 +10,7 @@
   left: 0;
   top: 0;
   width: 100%;
- 
+  z-index: 999;
 }
 
 .header_top {
@@ -23,7 +24,7 @@
   /* margin-bottom: 20px; */
   margin: 20px 0;
 }
-.header_top_down{
+.header_top_down {
   margin: 0px;
 }
 .header_top_left {
@@ -39,10 +40,10 @@
 .search {
 }
 
-.search_down{
+.search_down {
   position: absolute;
   left: 350px;
-  top : 10px;
+  top: 10px;
 }
 .search_form {
   display: flex;
@@ -83,7 +84,7 @@
   display: flex;
   gap: 20px;
 }
-.member_down{
+.member_down {
   position: absolute;
   right: 0;
   top: 30px;
