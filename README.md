@@ -189,3 +189,4 @@ margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
 ```
 
 - header 영역 css 작업
+- header 와 반응형 header를 분리해서 만들면 편하다.

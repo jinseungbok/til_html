@@ -1,6 +1,6 @@
 window.addEventListener("load", function () {
   // 1.  데이터를 가져옮
-  const dataUrl = "http://127.0.0.1:5500/public/api/banner.json";
+  const dataUrl = "./api/banner.json";
 
   /**
    * 데이터 연동
@@ -30,14 +30,14 @@ window.addEventListener("load", function () {
       const tempObj = _data[i];
 
       const tag = `
-      <div class="swiper-slide" id="${tempObj.id}">
-          <div class="banner_list">
-          <a href="${tempObj.url}">
-              <img src="${tempObj.img}" alt="${tempObj.alt}" title="${tempObj.alt}" />
-          </a>
-          </div>
-      </div>
-      `;
+    <div class="swiper-slide" id="${tempObj.id}">
+        <div class="banner_list">
+        <a href="${tempObj.url}">
+            <img src="${tempObj.img}" alt="${tempObj.alt}" title="${tempObj.alt}" />
+        </a>
+        </div>
+    </div>
+    `;
       htmlTag = htmlTag + tag;
     }
 
@@ -48,12 +48,10 @@ window.addEventListener("load", function () {
     // 3.  slide 를 생성하고 작동 시킨다.
 
     const swiper = new Swiper(".sw_banner", {
-      slidesPerView: 2,
-      spaceBetween: 25,
       speed: 1500,
       loop: true,
       pagination: {
-        el: ".sw_banner .swiper-pagination",
+        el: ".sw_banner_pg",
         clickable: true,
       },
       navigation: {
@@ -63,6 +61,24 @@ window.addEventListener("load", function () {
       autoplay: {
         delay: 2500,
         disableOnInteraction: false,
+      },
+      // 화면의 해상도에 따라서 작동
+      breakpoints: {
+        // 760 이상이면
+        760: {
+          slidesPerView: 1,
+          spaceBetween: 25,
+        },
+        // 960 이상이면
+        960: {
+          slidesPerView: 2,
+          spaceBetween: 25,
+        },
+        // 1024 이상이면
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 25,
+        },
       },
     });
 

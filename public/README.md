@@ -1,213 +1,185 @@
-# JS 적용
+# CSS 정리
 
-- JS 는 2가지로 크게 분류됩니다.
-- Node와 Web(웹브라우저)으로 분류합니다.
+## 1. 추천 라이브러리(팀에서 협의)
 
-## JS 코딩 좋은 위치
+- reset.css (https://meyerweb.com/eric/tools/css/reset/)
+- normalize.css (https://necolas.github.io/normalize.css/)
 
-- 가장 좋은 자리는 html 이 완료되는 시점.
+- normalize 예제 (무조건 제일 위에)
 
-```js
-// html 의  document 가 모두 로드 되면 실행하기
-// html 의  이미지, 파일 등등 리소스가 준비되면 실행
-// 표준입니다.
-window.addEventListener("load", function () {});
-
-// html 만 로드 완료를 체크합니다.
-window.addEventListener("DOMContentLoaded", function () {});
+```html
+<link
+  rel="stylesheet"
+  href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+/>
 ```
 
-## 요소(Element) 선택법
+## 2. 개선사항
 
-```js
-// DOM 만 완성화면 됩니다. 기준으로 코드를 진행함.
-window.addEventListener("DOMContentLoaded", function () {
-  // 우리가 원하는 요소(Element) 를 선택하는 법?
-  // - Tag 를 선택하고 싶어요. (Tag Element)
-  this.document.getElementsByTagName("header");
-  this.document.getElementsByClassName("header");
-  // - CSS 선택자를 이용해서 선택하고 싶어요. (Css Selector)
-  this.document.querySelector(".header");
-  this.document.querySelectorAll(".header");
-  // - ID 선택자를 이용해서 선택하고 싶어요. (ID)
-  this.document.getElementById("header");
-});
+- header.css 는 무조건 z-index: 999 이상 권장
+- header 영역이 margin 의 오류로 padding 변경
+
+```
+margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
+이런 경우 padding-top 또는 테두리를 주어서 해결합니다.
 ```
 
-- 예제
+- header 영역이 스크롤시 `postion:fixed 되면서 높이가 반영안됨.`
 
-```js
-// DOM 만 완성화면 됩니다. 기준으로 코드를 진행함.
-window.addEventListener("DOMContentLoaded", function () {
-  const header = this.document.querySelector(".header");
-  console.log(header);
-  const logo = this.document.querySelector(".logo");
-  console.log(logo);
-  const search = this.document.querySelector(".search");
-  console.log(search);
-  const member = this.document.querySelector(".header_top_right");
-  console.log(member);
-  const eventMenu = this.document.querySelector(".header_bottom_eventmenu");
-  console.log(eventMenu);
-});
+```
+ position:fixed 라고 셋팅하면 높이값이 반영이 안됩니다.
+ 강제로 main 영역의 상단에 공간을 padding-top 으로 적용 해결.
 ```
 
-## 다양한 이벤트의 이해
+- 배너 슬라이드는 단방향이라서, 즉 무한루프 가 아니라서 버튼 출력이 수정 필요.
 
-- 웹브라우저가 체크하는 변화를 `이벤트` 라고 함.
-- 이벤트 작성법 3가지
+## 3. CSS 자동 정리 도구 활용
 
-### 1. 태그에 직접 이벤트 작성하기
+- 필수 사항은 아닙니다.
+- https://h-owo-ld.tistory.com/184
+- `PostCSS Sorting` 검색 및 설치
 
-```js
-<태그 on이벤트="코드"></태그>
-<header class="header" onclick="alert('안녕')"></header>
+```json
+"postcssSorting.config": {
+    "properties-order": [
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+
+      "display",
+      "flex",
+      "flex-grow",
+      "flex-shrink",
+      "flex-basis",
+      "flex-direction",
+      "flex-wrap",
+      "justify-content",
+      "align-items",
+      "align-content",
+      "order",
+
+      "float",
+      "clear",
+      "box-sizing",
+      "width",
+      "min-width",
+      "max-width",
+      "height",
+      "min-height",
+      "max-height",
+      "margin",
+      "padding",
+      "overflow",
+      "overflow-x",
+      "overflow-y",
+
+      "font",
+      "font-family",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "letter-spacing",
+      "text-align",
+      "text-decoration",
+      "text-transform",
+      "color",
+
+      "background",
+      "background-color",
+      "background-image",
+      "background-size",
+      "background-position",
+      "background-repeat",
+
+      "border",
+      "border-width",
+      "border-style",
+      "border-color",
+      "border-radius",
+
+      "box-shadow",
+      "opacity",
+      "transition",
+      "transform",
+
+      "cursor",
+      "visibility",
+      "content"
+    ]
+  }
 ```
 
-### 2. 요소에 속성으로 이벤트 작성하기
+- 단축키 설정하기 : 설정 > Keyboard Shortcuts 선택
+- 검색어로 `postCSS Sorting:Run` 선택 : Shift + Alt + p
 
-```js
-요소.on이벤트 = function () {};
-const header = this.document.querySelector(".header");
-header.onclick = function () {
-  alert("반가워");
-};
+## 4. 반응형 작업
+
+### 4.1. 필수 체크 사항
+
+- 아래 구문이 없으면 화면 체크를 못해서 반응형 곤란
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 ```
 
-### 3. 요소에 이벤트 핸들러로 이벤트 작성하기(표준)
+- 포토샵 또는 Figma 로 디자인 제공되어짐(PC, 타블렛, 모바일)
+- 가능 하면 큰 화면에서 모두 배치하고, 점점 줄여가면서 배치하기를 권장
+- 필요하면 작업하면서 계속 @media 를 추가해 갑니다.
 
-```js
-요소.addEventListener("이벤트", function () {});
-
-const header = this.document.querySelector(".header");
-header.addEventListener("click", function () {
-  alert("표준 반가워");
-});
+```css
+/* 최대 크기 */
+@media all and (max-width: 1280px) {
+}
+@media all and (max-width: 1024px) {
+}
+@media all and (max-width: 960px) {
+}
+@media all and (max-width: 760px) {
+}
+@media all and (max-width: 540px) {
+}
 ```
 
-### 4. 활용빈도가 높은 `윈도우 이벤트`
+### 4.2. 작업시 참조
 
-- `load` :
-- `DOMContentLoaded` :
-- `resize`: 웹브라우저 너비, 높이 변경시 발생
-- `scroll` : 웹브라우저에 스크롤이 일어나면 발생
+- `웹브라우저 F12` 를 활용한다.
+- `Dock 위치를 조절`하거나 아니면 `디바이스 아이콘`으로 화면을 띄우고 진행
 
-### 5. 활용빈도가 높은 `마우스 이벤트`
+### 4.3. css 작업
 
-- `click` : 마우스 클릭(왼쪽)
-- `mouseenter` : 마우스 커서가 요소에 걸쳐지면
-- `mouseleave` : 마우스 커사가 요소에서 벗어나면
+- layout 클래스를 작업(common.css)
 
-### 6. 활용빈도가 높은 `키보드 이벤트`
+```css
+.layout {
+  max-width: 1280px;
+  width: 100%;
 
-- `keyup` : 키보드에서 키 입력후 이벤트
-- `keydown` : 키보드에서 키 입력시 이벤트
-- `keypress` : 키보드에서 키 누르고 있으면 이벤트
-
-### 7. 활용빈도가 높은 Form 관련 이벤트 (추후 정리)
-
-## CSS 제어법
-
-### 1. inline 형태로 적용하기 (가끔 활용함)
-
-- `대상.style.css속성 = "값"`
-
-```js
-// DOM 만 완성화면 됩니다. 기준으로 코드를 진행함.
-// DOM 은 html 태그 구조를 말한다.(Document Object Model) : 객체
-// 아래 문장은 html 이 완성되어졌다면 실행하자.
-window.addEventListener("DOMContentLoaded", function () {
-  // 아래 구문은 heder 변수를 만들고 html (document) 에서 css 선택자로 값을 셋팅
-  const header = this.document.querySelector(".header");
-  const logo = this.document.querySelector(".logo");
-  const search = this.document.querySelector(".search");
-  const member = this.document.querySelector(".header_top_right");
-  const eventMenu = this.document.querySelector(".header_bottom_eventmenu");
-
-  // 윈도우에 스크롤(scroll 이벤트)이 일어나면 기능을 작동하겠다.
-  this.window.addEventListener("scroll", function () {
-    // 스크롤이 되었을 때 스크롤바의 Y 축의 상단 픽셀위치값
-    const scrollY = window.scrollY;
-
-    // headerTop 영역의 높이값을 px 로 알고 싶다.
-    const headerTopH = this.document.querySelector(".header_top");
-    console.log(headerTopH.offsetHeight); //  50px 출력
-
-    // 만약 50 보다 작으면 전체 를 보이고, 그렇지 않으면 일부분을 숨긴다.
-    if (scrollY <= headerTopH.offsetHeight) {
-      // console.log("모두 보여라");
-      logo.style.display = "block";
-      eventMenu.style.display = "block";
-    } else {
-      // console.log("일부만 보여라");
-      // 로고를 css 로 제어하겠다.
-      logo.style.display = "none";
-      eventMenu.style.display = "none";
-      search.style.position = "absolute";
-      search.style.left = "350px";
-      search.style.top = "60px";
-    }
-  });
-});
+  margin: 0 auto;
+  /* margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto; */
+}
+/* 반응형 작업 */
+@media all and (max-width: 1280px) {
+  .layout {
+    max-width: 1024px;
+  }
+}
+@media all and (max-width: 1024px) {
+  .layout {
+    max-width: 760px;
+  }
+}
+@media all and (max-width: 760px) {
+  .layout {
+    max-width: 100%;
+  }
+}
 ```
 
-### 2. css 클래스 활용하기 (적극 활용)
-
-- `대상.classList.add("클래스명")`
-- `대상.classList.remove("클래스명")`
-- `대상.classList.toggle("클래스명")`
-- `대상.classList.contain("클래스명")`
-
-```js
-// DOM 만 완성화면 됩니다. 기준으로 코드를 진행함.
-// DOM 은 html 태그 구조를 말한다.(Document Object Model) : 객체
-// 아래 문장은 html 이 완성되어졌다면 실행하자.
-window.addEventListener("DOMContentLoaded", function () {
-  // 아래 구문은 heder 변수를 만들고 html (document) 에서 css 선택자로 값을 셋팅
-  const header = this.document.querySelector(".header");
-  const headerTop = this.document.querySelector(".header_top");
-  const logo = this.document.querySelector(".logo");
-  const search = this.document.querySelector(".search");
-  const member = this.document.querySelector(".header_top_right");
-  const eventMenu = this.document.querySelector(".header_bottom_eventmenu");
-
-  // 윈도우에 스크롤(scroll 이벤트)이 일어나면 기능을 작동하겠다.
-  this.window.addEventListener("scroll", function () {
-    // 스크롤이 되었을 때 스크롤바의 Y 축의 상단 픽셀위치값
-    const scrollY = window.scrollY;
-
-    // headerTop 영역의 높이값을 px 로 알고 싶다.
-    const headerTopH = this.document.querySelector(".header_top");
-    console.log(headerTopH.offsetHeight); //  50px 출력
-
-    // 만약 50 보다 작으면 전체 를 보이고, 그렇지 않으면 일부분을 숨긴다.
-    if (scrollY <= headerTopH.offsetHeight) {
-      // console.log("모두 보여라");
-      logo.style.display = "block";
-      eventMenu.style.display = "block";
-      // class 제거로 변경
-      header.classList.remove("header_down");
-      headerTop.classList.remove("header_top_down");
-      search.classList.remove("search_down");
-      member.classList.remove("member_down");
-    } else {
-      // console.log("일부만 보여라");
-      // 로고를 css 로 제어하겠다.
-      logo.style.display = "none";
-      eventMenu.style.display = "none";
-      // class 추가로 변경
-      header.classList.add("header_down");
-      headerTop.classList.add("header_top_down");
-      search.classList.add("search_down");
-      member.classList.add("member_down");
-    }
-  });
-});
-```
-
-## 슬라이드 외부 라이브러리 활용하기
-
-- 절대로 직접 만들지 마세요.
-- `Swiper` : `가장`추천 (https://swiperjs.com/)
-- `Slick` : 추천 (https://kenwheeler.github.io/slick/)
-- `bxSlide` : 비추천 (https://bxslider.com/)
+- header 영역 css 작업
+- header 와 반응형 header 를 분리해서 만들면 편하다.
