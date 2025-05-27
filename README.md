@@ -41,25 +41,6 @@ margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
 
 ```json
 "postcssSorting.config": {
-    "order": [
-      "custom-properties",
-      "dollar-variables",
-      "at-variables",
-      {
-        "type": "at-rule",
-        "name": "extend"
-      },
-      {
-        "type": "at-rule",
-        "name": "include"
-      },
-      "declarations",
-      {
-        "type": "at-rule",
-        "name": "media"
-      },
-      "rules"
-    ],
     "properties-order": [
       "position",
       "top",
@@ -127,12 +108,11 @@ margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
       "cursor",
       "visibility",
       "content"
-    ],
-    "unspecified-properties-position": "bottom"
+    ]
   }
 ```
 
-- 단축키 설정하기 : 설정 > Keyboard ShortCut 선택
+- 단축키 설정하기 : 설정 > Keyboard Shortcuts 선택
 - 검색어로 `postCSS Sorting:Run` 선택 : Shift + Alt + p
 
 ## 4. 반응형 작업
@@ -163,13 +143,26 @@ margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
 }
 ```
 
-### 4.2. 참조
+### 4.2. 작업시 참조
+
+- `웹브라우저 F12` 를 활용한다.
+- `Dock 위치를 조절`하거나 아니면 `디바이스 아이콘`으로 화면을 띄우고 진행
 
 ### 4.3. css 작업
 
-- layout 클래스를 작업
+- layout 클래스를 작업(common.css)
 
 ```css
+.layout {
+  max-width: 1280px;
+  width: 100%;
+
+  margin: 0 auto;
+  /* margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto; */
+}
 /* 반응형 작업 */
 @media all and (max-width: 1280px) {
   .layout {
@@ -189,4 +182,87 @@ margin-top 의 오류라고 해서 유명합니다. (웹브라우저 문제)
 ```
 
 - header 영역 css 작업
-- header 와 반응형 header를 분리해서 만들면 편하다.
+- header 와 반응형 header 를 분리해서 만들면 편하다.
+
+## 5. 자연스러운 반응형 계산법
+
+- 예제)
+
+  - PC 디자인 영역 너비가 1280px 이다.
+  - 특정 영역의 너비가 650px, 높이가 400px 이다.
+  - 자연스러운 너비, 높이 를 적용한다면?
+
+- 정리
+  - max-width: 650px, max-height: 400px
+  - `영역너비(650px) / 디자인 전체 영역 너비 (1280px) * 100 = 결과 vw`
+  - `영역높이(400px) / 디자인 전체 영역 너비 (1280px) * 100 = 결과 vw`
+
+```html
+<!-- 자연스러운 반응형 계산법 -->
+<div class="box_wrap">
+  <div class="box">내용</div>
+</div>
+<!-- 자연스러운 반응형 계산법 -->
+```
+
+```css
+/* 자연스러운 반응형 계산법 */
+.box_wrap {
+  position: relative;
+  max-width: 1280px;
+  width: 100%;
+
+  background-color: hotpink;
+  margin: 0 auto;
+}
+.box {
+  position: relative;
+  max-width: 650px;
+  width: 50.78vw;
+  max-height: 400px;
+  height: 31.25vw;
+  background-color: yellowgreen;
+  margin: 0 auto;
+}
+```
+
+## 6. 안내창 만들기
+
+```html
+<!-- 안내창 -->
+<div class="popup">
+  <div class="popup_content">내용</div>
+</div>
+<!-- 안내창 -->
+```
+
+```css
+/* 팝업창 */
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* 아래처럼 해도 되요. */
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999999999999;
+}
+.popup_content {
+  position: relative;
+  max-width: 650px;
+  width: 50.78vw;
+  max-height: 400px;
+  height: 31.25vw;
+  background-color: yellowgreen;
+  margin: 0 auto;
+}
+```
+
+# SCSS 셋팅
+
+- VSCode에서 설치 : `Live Sass Compiler`
+- 실습
+  - css 폴더 / `test.scss 파일`생성
+  - VSCode 하단에 `Watch Sass 를 클릭`함.
